@@ -1,0 +1,28 @@
+{
+  "name": "redux-replica",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.13.0",
+    "@types/bun": "latest",
+    "@types/jest": "29.5.14",
+    "eslint": "9.13.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-prettier": "5.2.1",
+    "globals": "15.11.0",
+    "jest": "29.7.0",
+    "prettier": "3.3.3",
+    "typescript-eslint": "8.12.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "module": "index.ts"
+}
