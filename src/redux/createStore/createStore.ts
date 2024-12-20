@@ -3,27 +3,27 @@ import type { Action } from './types/Action';
 import type { Dispatch } from './types/Dispatch';
 import type { Reducer } from './types/Reducer';
 import type { Listener, Store, Unsubscribe } from './types/Store';
-import type { Enhancer, UnknownObject } from './types/Enhancer';
+import type { Enhancer } from './types/Enhancer';
 
-export const InternalActionTypes = {
+export const InternalActionType = {
   Initial: `@@redux/INIT${randomString()}`,
 };
 
 const createStore = <
   S,
   A extends Action,
-  Ext extends UnknownObject = {},
-  StateExt extends UnknownObject = {},
+  StoreExt extends UnknownObject = UnknownObject,
+  StateExt extends UnknownObject = UnknownObject,
 >(
   reducer: Reducer<S, A>,
-  enhancer?: Enhancer<Ext, StateExt>,
-): Store<S & StateExt, A> & Ext => {
+  enhancer?: Enhancer<StoreExt, StateExt>,
+): Store<S & StateExt, A> & StoreExt => {
   if (enhancer) {
     return enhancer(createStore)(reducer);
   }
 
   let state: S | undefined;
-  let listeners: Map<number, Listener> = new Map();
+  const listeners: Map<number, Listener> = new Map();
   let listenerIdCounter = 0;
 
   const dispatch = (action: A): A => {
@@ -33,7 +33,9 @@ const createStore = <
       listeners.forEach(listener => {
         listener();
       });
-    } catch {}
+    } catch {
+      // do nothing
+    }
 
     return action;
   };
@@ -51,13 +53,13 @@ const createStore = <
     };
   };
 
-  dispatch({ type: InternalActionTypes.Initial } as A);
+  dispatch({ type: InternalActionType.Initial } as A);
 
   return {
     dispatch: dispatch as Dispatch<A>,
     getState,
     subscribe,
-  } as unknown as Store<S & StateExt, A> & Ext;
+  } as Store<S & StateExt, A> & StoreExt;
 };
 
 export default createStore;

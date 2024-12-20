@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, type Middleware, type Dispatch } from './redux';
+import { createStore, applyMiddleware, type Middleware } from './redux';
 
 const initialState = {
   counter: 0,
@@ -19,7 +19,7 @@ const reducer = (state = initialState, action: Increment) => {
   }
 };
 
-const logger: Middleware<{}, Dispatch, typeof initialState> = ({ getState }) => {
+const logger: Middleware<typeof initialState> = ({ getState }) => {
   return next => action => {
     console.log('Will dispatch:', action);
 
@@ -38,4 +38,3 @@ console.log('Initial state:', store.getState());
 store.dispatch({ type: 'increment' });
 store.dispatch({ type: 'increment' });
 store.dispatch({ type: 'increment' });
-

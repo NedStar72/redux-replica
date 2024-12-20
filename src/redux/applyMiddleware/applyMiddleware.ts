@@ -4,29 +4,31 @@ import compose from './compose';
 
 export interface ApplyMiddleware {
   (): Enhancer;
-  <Ext1, S>(middleware1: Middleware<Ext1>): Enhancer<{ dispatch: Ext1 }>;
-  <Ext1, Ext2, S>(
-    middleware1: Middleware<Ext1>,
-    middleware2: Middleware<Ext2>,
-  ): Enhancer<{ dispatch: Ext1 & Ext2 }>;
-  <Ext1, Ext2, Ext3, S>(
-    middleware1: Middleware<Ext1>,
-    middleware2: Middleware<Ext2>,
-    middleware3: Middleware<Ext3>,
-  ): Enhancer<{ dispatch: Ext1 & Ext2 & Ext3 }>;
-  <Ext1, Ext2, Ext3, Ext4, S>(
-    middleware1: Middleware<Ext1>,
-    middleware2: Middleware<Ext2>,
-    middleware3: Middleware<Ext3>,
-    middleware4: Middleware<Ext4>,
-  ): Enhancer<{ dispatch: Ext1 & Ext2 & Ext3 & Ext4 }>;
-  <Ext1, Ext2, Ext3, Ext4, Ext5, S>(
-    middleware1: Middleware<Ext1>,
-    middleware2: Middleware<Ext2>,
-    middleware3: Middleware<Ext3>,
-    middleware4: Middleware<Ext4>,
-    middleware5: Middleware<Ext5>,
-  ): Enhancer<{ dispatch: Ext1 & Ext2 & Ext3 & Ext4 & Ext5 }>;
+  <S, D extends Dispatch, Ext1>(
+    middleware1: Middleware<S, D, Ext1>,
+  ): Enhancer<{ dispatch: Dispatch & Ext1 }>;
+  <S, D extends Dispatch, Ext1, Ext2>(
+    middleware1: Middleware<S, D, Ext1>,
+    middleware2: Middleware<S, D, Ext2>,
+  ): Enhancer<{ dispatch: Dispatch & Ext1 & Ext2 }>;
+  <S, D extends Dispatch, Ext1, Ext2, Ext3>(
+    middleware1: Middleware<S, D, Ext1>,
+    middleware2: Middleware<S, D, Ext2>,
+    middleware3: Middleware<S, D, Ext3>,
+  ): Enhancer<{ dispatch: Dispatch & Ext1 & Ext2 & Ext3 }>;
+  <S, D extends Dispatch, Ext1, Ext2, Ext3, Ext4>(
+    middleware1: Middleware<S, D, Ext1>,
+    middleware2: Middleware<S, D, Ext2>,
+    middleware3: Middleware<S, D, Ext3>,
+    middleware4: Middleware<S, D, Ext4>,
+  ): Enhancer<{ dispatch: Dispatch & Ext1 & Ext2 & Ext3 & Ext4 }>;
+  <S, D extends Dispatch, Ext1, Ext2, Ext3, Ext4, Ext5>(
+    middleware1: Middleware<S, D, Ext1>,
+    middleware2: Middleware<S, D, Ext2>,
+    middleware3: Middleware<S, D, Ext3>,
+    middleware4: Middleware<S, D, Ext4>,
+    middleware5: Middleware<S, D, Ext5>,
+  ): Enhancer<{ dispatch: Dispatch & Ext1 & Ext2 & Ext3 & Ext4 & Ext5 }>;
   (...middlewares: Middleware[]): Enhancer;
 }
 
